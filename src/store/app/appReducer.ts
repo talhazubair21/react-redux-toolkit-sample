@@ -4,7 +4,6 @@ import { buildSubStateSelector } from "./../subSelector";
 const initialState: AppStoreState = {
   user: null,
   isLoggedIn: false,
-  language: "en",
 };
 
 export type AppState = typeof initialState;
@@ -15,11 +14,9 @@ export const appSlice = createSlice<
     setUser: CaseReducer<AppState, PayloadAction<any>>;
     login: CaseReducer<AppState>;
     logout: CaseReducer<AppState>;
-    reset: CaseReducer<AppState>;
-    changeLanguage: CaseReducer<AppState, PayloadAction<string>>;
   }
 >({
-  name: "user",
+  name: "app",
   initialState,
   reducers: {
     setUser: (state, { payload }) => {
@@ -28,7 +25,6 @@ export const appSlice = createSlice<
         user: payload,
       };
     },
-    reset: () => initialState,
     login: (state) => {
       return {
         ...state,
@@ -39,12 +35,6 @@ export const appSlice = createSlice<
       return {
         ...state,
         isLoggedIn: false,
-      };
-    },
-    changeLanguage: (state, { payload }) => {
-      return {
-        ...state,
-        language: payload,
       };
     },
   },
